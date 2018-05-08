@@ -10,10 +10,12 @@ class ReportApi {
         return new Observable(function (subscriber) {
             let route = ApiRoutes.REPORT_ACTIVITY;
             if ( filter !== undefined && filter !== null ) {
-                route += '?filter=' + encodeURIComponent(JSON.stringify(filter));
+                route += '?filter=' + encodeURIComponent(JSON.stringify(filter)) + '&';
+            } else {
+                route += '?';
             }
 
-            route += '&page=' + encodeURIComponent(page);
+            route += 'page=' + encodeURIComponent(page);
             route += '&itemsPerPage=' + encodeURIComponent(itemsPerPage);
 
             RxHR.get(route).subscribe(
