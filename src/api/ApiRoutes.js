@@ -7,7 +7,7 @@ class ApiRoutes {
     static FAILURES = API_ROOT + '/failures';
     static CONSTRUCTIONS = API_ROOT + '/constructions';
     static MEASURE_STATIONS = API_ROOT + '/measure_stations';
-    static REPORTS = API_ROOT + '/reports';
+    static REPORT_ACTIVITY = API_ROOT + '/report';
 }
 
 

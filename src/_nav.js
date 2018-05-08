@@ -89,7 +89,7 @@ export default {
         children: [
             {
                 name: 'Izvještaji',
-                url: '/administration/reports',
+                url: '/reporting/activity',
                 icon: 'icon-doc',
             },
             {

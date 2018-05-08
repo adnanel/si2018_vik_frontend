@@ -35,6 +35,7 @@ import {
 import Full from './containers/Full';
 import Pipes from "./views/Pipes/Pipes";
 import PipesList from "./views/Pipes/PipesList/PipesList";
+import ActivityReport from "./views/Reporting/ActivityReport/ActivityReport";
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -60,6 +61,9 @@ const routes = [
 
   { path: '/', exact: true, name: 'Home', component: Full },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+
+
+  { path: '/reporting/activity', name: 'Izvještaj aktivnosti', component: ActivityReport },
 
   // template leftovers, remove with time as things become unnecessary
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
