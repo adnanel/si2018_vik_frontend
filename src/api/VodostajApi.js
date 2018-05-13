@@ -3,10 +3,10 @@ import ApiFilter from "./ApiFilter";
 import {Observable} from "rxjs";
 import {RxHR} from "@akanass/rx-http-request";
 import ApiRoutes from './ApiRoutes';
-import Pipe from './model/Vodostaj';
+import Pipe, { Vodostaj } from './model/Vodostaj';
 
-class PipeApi {
-    static GetVodostaji(page: number = 1, itemsPerPage: number = 25, filter: ApiFilter|ApiFilterGroup = null): Observable<Pipe[]> {
+class VodostajApi {
+    static GetVodostaji(page: number = 1, itemsPerPage: number = 25, filter: ApiFilter|ApiFilterGroup = null): Observable<Vodostaj[]> {
         return new Observable(function (subscriber) {
             let route = ApiRoutes.VODOSTAJI;
             if ( filter !== undefined && filter !== null ) {
