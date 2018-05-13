@@ -36,12 +36,18 @@ import Full from './containers/Full';
 import Pipes from "./views/Pipes/Pipes";
 import PipesList from "./views/Pipes/PipesList/PipesList";
 import ActivityReport from "./views/Reporting/ActivityReport/ActivityReport";
+import Vodostaji from './views/Vodostaji/Vodostaji';
+import VodostajiList from './views/Vodostaji/VodostajiList/VodostajiList';
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/pipes', exact: true, name: 'Cijevi', component: Pipes },
   { path: '/pipes/add', exact: true, name: 'Nova cijev', component: Dashboard },
   { path: '/pipes/list', exact: true, name: 'Spisak cijevi', component: PipesList },
+
+  { path: '/vodostaji', exact: true, name: 'Vodostaji', component: Vodostaji},
+  { path: '/vodostaji/add', exact: true, name: 'Novi vodostaj', component: Dashboard},
+  { path: '/vodostaji/list', exact: true, name: 'Spisak vodostaja', component: VodostajiList},
 
   { path: '/mstations', exact: true, name: 'Home', component: Dashboard },
   { path: '/mstations/add', exact: true, name: 'Home', component: Dashboard },

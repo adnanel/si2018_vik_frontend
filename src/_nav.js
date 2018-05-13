@@ -32,6 +32,24 @@ export default {
       ]
     },
     {
+        name:'Vodostaji',
+        url: '/vodostaji',
+        icon: 'icon-drop',
+        children: [
+            {
+            name: 'Novi unos',
+            url: '/vodostaji/add',
+            icon: 'icon-plus',
+            },
+            {
+                name: 'Spisak',
+                url: '/vodostaji/list',
+                icon: 'icon-notebook',
+            },
+        ]
+
+    },
+    {
         name: 'Mjerna mjesta',
         url: '/mstations',
         icon: 'icon-flag',
