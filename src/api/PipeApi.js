@@ -30,6 +30,46 @@ class PipeApi {
             )
         });
     }
+    static GetPipeById(id): Observable<Pipe[]> {
+        return new Observable(function (subscriber) {
+            let route = ApiRoutes.PIPES;
+
+            route += '/' + encodeURIComponent(id);
+            console.log(route);
+
+            RxHR.get(route).subscribe(
+                function(value) {
+                    subscriber.next(JSON.parse(value.response.body));
+                    subscriber.complete();
+                    console.log(value);
+                },
+                function(error) {
+                    subscriber.error(error);
+                    subscriber.complete();
+                }
+            )
+        });
+    }
+    static PatchPipeById(id): Observable<Pipe[]> {
+        return new Observable(function (subscriber) {
+            let route = ApiRoutes.PIPES;
+
+            route += '/' + encodeURIComponent(id);
+            console.log(route);
+
+            RxHR.patch(route, {"status":"workInProgress"}).subscribe(
+                function(value) {
+                    subscriber.next(JSON.parse(value.response.body));
+                    subscriber.complete();
+                    console.log(value);
+                },
+                function(error) {
+                    subscriber.error(error);
+                    subscriber.complete();
+                }
+            )
+        });
+    }
 }
 
 

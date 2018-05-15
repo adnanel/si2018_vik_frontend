@@ -82,6 +82,7 @@ class Dashboard extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+    this.oznaciRad = this.oznaciRad.bind(this);
 
     this.state = {
       dropdownOpen: false,
@@ -90,11 +91,9 @@ class Dashboard extends Component {
 
     PipeApi.GetPipes().subscribe(
         vals => {
+            console.log(vals);
             this.pipes = [];
             for ( let pipe of vals ) {
-
-         
-
                 var pipeOptions = null;
                 if(pipe.hasOwnProperty("status") && pipe.status==="critical")
                     pipeOptions=this.brokenPipeStyleOptions;
@@ -131,6 +130,14 @@ class Dashboard extends Component {
     this.setState({
       radioSelected: radioSelected,
     });
+  }
+  oznaciRad(e){
+    PipeApi.PatchPipeById(this.selectedPipe.props.pipeObj._id).subscribe(
+        vals => {
+            console.log(vals);
+            console.log(this.selectedPipe);
+            
+        });
   }
 
   render() {
@@ -225,7 +232,7 @@ class Dashboard extends Component {
                                 <Button>Dodaj podatke o cijevi</Button>
                             </Col>
                             <Col xs ="4">
-                                <Button>Označi rad</Button>
+                                <Button onClick={this.oznaciRad}>Označi rad</Button>
                             </Col>
                             <Col xs ="4">
                                 <Button>1</Button>
