@@ -56,11 +56,23 @@ class Dashboard extends Component {
       this.forceUpdate();
   }
 
-  pipeStyleOptions = {
-      strokeColor: '#00eeff',
-      strokeWeight: 10,
-      geodesic: true
-  };
+    pipeStyleOptions = {
+    strokeColor: '#00eeff',
+    strokeWeight: 10,
+    geodesic: true
+    };
+
+    brokenPipeStyleOptions = {
+    strokeColor: '#ff0000',
+    strokeWeight: 10,
+    geodesic: true
+    }
+
+    workInProgressPipeStyleOptions = {
+    strokeColor: '#ffff00',
+    strokeWeight: 10,
+    geodesic: true
+    }
 
   pipes = [];
 
@@ -80,6 +92,17 @@ class Dashboard extends Component {
         vals => {
             this.pipes = [];
             for ( let pipe of vals ) {
+
+         
+
+                var pipeOptions = null;
+                if(pipe.hasOwnProperty("status") && pipe.status==="critical")
+                    pipeOptions=this.brokenPipeStyleOptions;
+                else if(pipe.hasOwnProperty("status") && pipe.status==="workInProgress")
+                    pipeOptions=this.workInProgressPipeStyleOptions;
+                else
+                pipeOptions=this.pipeStyleOptions;
+
                 this.pipes.push(
                 <Polyline
                     key={pipe.name}
@@ -88,15 +111,14 @@ class Dashboard extends Component {
                         {lat: pipe.start_lat, lng: pipe.start_lng },
                         {lat: pipe.end_lat, lng: pipe.end_lng }
                     ]}
-                    options={this.pipeStyleOptions}
+                    options={pipeOptions}
                     onClick={(event) => this.pipeClick(pipe.name)}
                 />);
             }
-
+            
             this.forceUpdate();
         }
     );
-
   }
 
   toggle() {
