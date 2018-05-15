@@ -173,7 +173,7 @@ class Dashboard extends Component {
             </Col>
           </Row>
 
-          {this.selectedPipe !== null &&
+          {this.selectedPipe !== null && // kad se klikne na cijev
               <Row>
                 <Col md={12}>
 
@@ -220,7 +220,17 @@ class Dashboard extends Component {
                                     </FormGroup>
                                 </Col>
                             </FormGroup>
-
+                            <FormGroup id="buttoni" row className="my-0">
+                            <Col xs ="4">
+                                <Button>Dodaj podatke o cijevi</Button>
+                            </Col>
+                            <Col xs ="4">
+                                <Button>Označi rad</Button>
+                            </Col>
+                            <Col xs ="4">
+                                <Button>1</Button>
+                            </Col>
+                        </FormGroup>
                         </CardBody>
                     </Card>
                 </Col>
