@@ -18,7 +18,7 @@ import type {ActivityReportEntry} from "../../../api/model/ActivityReportEntry";
 
 
 class ActivityReport extends Component {
-    items: ActivityReportEntry = [];
+    items: ActivityReportEntry[] = [];
     itemsPerPage = 5;
     currentPage = 1;
     total = 0;
@@ -27,6 +27,12 @@ class ActivityReport extends Component {
         ReportApi.GenerateActivityReport(this.currentPage, this.itemsPerPage, null).subscribe( items => {
             this.total = items.total;
             this.items = items.data;
+            if ( this.items.length === 0 && this.currentPage > 1 ) {
+                this.currentPage --;
+                this.fetchList();
+                return;
+            }
+
             this.forceUpdate();
         } );
     }
@@ -55,7 +61,7 @@ class ActivityReport extends Component {
     makePagination() {
         var pagination = [];
 
-        for ( var i = Math.max(-2 + this.currentPage, 1); i < Math.min((this.total / this.itemsPerPage), Math.max(-2 + this.currentPage, 1) + 5); ++ i ) {
+        for ( var i = Math.max(-2 + this.currentPage, 1); i <= Math.min(Math.ceil(this.total / this.itemsPerPage), Math.max(-2 + this.currentPage, 1) + 5); ++ i ) {
             var paginator = function(instance, i) {
                 return function() {
                     instance.setPage(i);
@@ -82,7 +88,7 @@ class ActivityReport extends Component {
 
     render() {
         const items: ActivityReportEntry[] = [];
-        let k = 1;
+        let k = (this.itemsPerPage * (this.currentPage - 1)) + 1;
         for ( const i of this.items ) {
             items.push(<tr key={k}>
                 <td>{k}</td>
@@ -97,12 +103,12 @@ class ActivityReport extends Component {
                 <Col>
                     <Card>
                         <CardHeader>
-                            <i className="fa fa-align-justify"></i> Combined All Table
+                            <i className="fa fa-align-justify"></i> Izvještaj današnjih aktivnosti
                         </CardHeader>
                         <CardBody>
                             <div className="pr-2 pt-2 pb-2">
                                 <span className="pr-2 pt-2 pb-2">
-                                    Broj unosa po stranici:
+                                    Ukupno {this.total} unosa, broj prikazanih unosa po stranici:
                                 </span>
                                 <ButtonDropdown className="mr-1" isOpen={this.state.itemsPerPageDropdownOpen} toggle={() => { this.setState( { itemsPerPageDropdownOpen: !this.state.itemsPerPageDropdownOpen }); } }>
                                     <DropdownToggle caret color="secondary">
