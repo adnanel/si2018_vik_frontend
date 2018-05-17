@@ -50,14 +50,15 @@ class PipeApi {
             )
         });
     }
-    static PatchPipeById(id): Observable<Pipe[]> {
+    static PatchPipeById(id,status): Observable<Pipe[]> {
         return new Observable(function (subscriber) {
             let route = ApiRoutes.PIPES;
 
             route += '/' + encodeURIComponent(id);
+            route+='?status='+status;
             console.log(route);
 
-            RxHR.patch(route, {"status":"workInProgress"}).subscribe(
+            RxHR.patch(route).subscribe(
                 function(value) {
                     subscriber.next(JSON.parse(value.response.body));
                     subscriber.complete();
