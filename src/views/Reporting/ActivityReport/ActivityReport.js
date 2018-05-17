@@ -20,10 +20,13 @@ import type {ActivityReportEntry} from "../../../api/model/ActivityReportEntry";
 class ActivityReport extends Component {
     items: ActivityReportEntry = [];
     itemsPerPage = 5;
+    currentPage = 1;
+    total = 0;
 
     fetchList() {
-        ReportApi.GenerateActivityReport(1, this.itemsPerPage, null).subscribe( items => {
-            this.items = items;
+        ReportApi.GenerateActivityReport(this.currentPage, this.itemsPerPage, null).subscribe( items => {
+            this.total = items.total;
+            this.items = items.data;
             this.forceUpdate();
         } );
     }
@@ -44,6 +47,39 @@ class ActivityReport extends Component {
         this.fetchList();
     }
 
+    setPage(n) {
+        this.currentPage = n;
+        this.fetchList();
+    }
+
+    makePagination() {
+        var pagination = [];
+
+        for ( var i = Math.max(-2 + this.currentPage, 1); i < Math.min((this.total / this.itemsPerPage), Math.max(-2 + this.currentPage, 1) + 5); ++ i ) {
+            var paginator = function(instance, i) {
+                return function() {
+                    instance.setPage(i);
+                }
+            };
+
+            pagination.push(
+                <PaginationItem key={i}>
+                    <PaginationLink onClick={paginator(this, i)} tag="button">{i}</PaginationLink>
+                </PaginationItem>
+            );
+
+            if ( i === this.currentPage ) {
+                pagination[pagination.length - 1] = <PaginationItem active key={i}>
+                    <PaginationLink tag="button">{i}</PaginationLink>
+                </PaginationItem>
+            }
+        }
+
+        return <Pagination>
+            {pagination}
+        </Pagination>;
+    }
+
     render() {
         const items: ActivityReportEntry[] = [];
         let k = 1;
@@ -52,7 +88,7 @@ class ActivityReport extends Component {
                 <td>{k}</td>
                 <td>{ReportApi.LocalizedActivityLabel(i.activity)}</td>
                 <td>{i.user_id}</td>
-                <td>{i.timestamp}</td>
+                <td>{new Date(i.timestamp).toLocaleString()}</td>
             </tr>);
             ++k;
         }
@@ -98,16 +134,7 @@ class ActivityReport extends Component {
                                 </tbody>
                             </Table>
                             <nav>
-                                <Pagination>
-                                    <PaginationItem><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
-                                    <PaginationItem active>
-                                        <PaginationLink tag="button">1</PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem><PaginationLink tag="button">2</PaginationLink></PaginationItem>
-                                    <PaginationItem><PaginationLink tag="button">3</PaginationLink></PaginationItem>
-                                    <PaginationItem><PaginationLink tag="button">4</PaginationLink></PaginationItem>
-                                    <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
-                                </Pagination>
+                                {this.makePagination()}
                             </nav>
                         </CardBody>
                     </Card>
