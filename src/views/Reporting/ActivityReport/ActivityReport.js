@@ -112,16 +112,18 @@ class ActivityReport extends Component {
                                 </span>
                                 <ButtonDropdown className="mr-1" isOpen={this.state.itemsPerPageDropdownOpen} toggle={() => { this.setState( { itemsPerPageDropdownOpen: !this.state.itemsPerPageDropdownOpen }); } }>
                                     <DropdownToggle caret color="secondary">
-                                        {this.itemsPerPage}
+                                        {this.itemsPerPage === -1 ? 'Svi unosi' : this.itemsPerPage}
                                     </DropdownToggle>
                                     <DropdownMenu>
                                         <DropdownItem onClick={() => this.setItemsPerPage(5)}>5</DropdownItem>
                                         <DropdownItem onClick={() => this.setItemsPerPage(10)}>10</DropdownItem>
                                         <DropdownItem onClick={() => this.setItemsPerPage(15)}>15</DropdownItem>
                                         <DropdownItem onClick={() => this.setItemsPerPage(20)}>20</DropdownItem>
+                                        <DropdownItem onClick={() => this.setItemsPerPage(-1)}>Svi unosi</DropdownItem>
                                     </DropdownMenu>
                                 </ButtonDropdown>
                                 <Button onClick={() => this.fetchList()}>Osvježi</Button>
+                                <Button onClick={() => window.print()}>Printaj trenutni pogled</Button>
                             </div>
 
                             <Table hover bordered striped responsive size="sm">

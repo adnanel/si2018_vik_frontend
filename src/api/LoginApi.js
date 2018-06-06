@@ -1,14 +1,14 @@
 import ApiFilterGroup from "./ApiFilterGroup";
-import ApiFilter from "./ApiFilter";
+import ApiRoutes from "./ApiRoutes";
 import {Observable} from "rxjs";
 import {RxHR} from "@akanass/rx-http-request";
-import ApiRoutes from './ApiRoutes';
-import Vodostaj  from './model/Vodostaj';
+import ApiFilter from "./ApiFilter";
+import ReportApiLabels from './strings/activity_names';
 
-class VodostajApi {
-    static GetVodostaji(page: number = 1, itemsPerPage: number = 25, filter: ApiFilter|ApiFilterGroup = null): Observable<Vodostaj[]> {
+class ReportApi {
+    static Login(page: number = 1, itemsPerPage: 25, filter: ApiFilter|ApiFilterGroup = null) {
         return new Observable(function (subscriber) {
-            let route = ApiRoutes.VODOSTAJI;
+            let route = ApiRoutes.LOGIN;
             if ( filter !== undefined && filter !== null ) {
                 route += '?filter=' + encodeURIComponent(JSON.stringify(filter)) + '&';
             } else {
@@ -30,6 +30,14 @@ class VodostajApi {
             )
         });
     }
+
+    static LocalizedActivityLabel(activity_name: string) {
+        const val = ReportApiLabels[activity_name];
+        if ( val !== undefined ) {
+            return val;
+        }
+        return activity_name;
+    }
 }
 
-export default VodostajApi;
+export default ReportApi;

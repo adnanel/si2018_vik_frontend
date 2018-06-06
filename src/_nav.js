@@ -6,6 +6,11 @@ export default {
       icon: 'icon-speedometer',
     },
     {
+        name: 'Login',
+        url: '/login',
+        icon: 'icon-speedometer',
+      },
+    {
       title: true,
       name: 'Sistem',
       wrapper: {            // optional wrapper object
@@ -113,6 +118,11 @@ export default {
             {
                 name: 'Postavke',
                 url: '/administration/settings',
+                icon: 'icon-settings',
+            },
+            {
+                name: 'Help',
+                url: 'https://github.com/SoftverInzenjeringETFSA/2018_NadzorVodovodneMreze/tree/master/si2018_vik_backend',
                 icon: 'icon-settings',
             },
         ]
