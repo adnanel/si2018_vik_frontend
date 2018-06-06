@@ -1,6 +1,6 @@
 
 // set to localhost when developing
-const API_ROOT = 'https://si2018backend.herokuapp.com';
+const API_ROOT = 'https://si2018backend.herokuapp.com/api';
 // const API_ROOT = 'http://localhost:8080/api';
 
 class ApiRoutes {
